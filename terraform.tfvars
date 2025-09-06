@@ -1,0 +1,16 @@
+subscription_id       = "subscription-id"
+tenant_id             = "tenant-id"
+rg_name               = "rg-tf-hml"
+location              = "eastus"
+vnet_name             = "vnet_tf-hml"
+snet_name             = "sub_arck"
+vnet_address_prefixes = ["10.21.0.0/16"]
+snet_address_prefixes = ["10.21.0.0/18"]
+storage_name          = "storagetfhml"
+access_tier           = "Cool"
+public_network_access = "Enabled"
+allow_blob_public_access = true
+dns_service_ip        = "10.200.5.5"           
+service_cidr          = "10.200.5.0/24"        
+aks_dns_name_prefix   = "arck-tf-hml-dns"  
+global_rg_name = "GlobalService" 
