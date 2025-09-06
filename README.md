@@ -22,7 +22,7 @@ Antes de começar, certifique-se de que você tem o seguinte:
     *   Resource Group: `tf-state-rg`
     *   Storage Account: `tfstateiury`
     *   Container Name: `tfstate`
-6.  **VNet Global Existente**: Uma VNet chamada `custodia_vnet_globalservice` deve existir no grupo de recursos `GlobalService` para que o emparelhamento de rede seja bem-sucedido.
+6.  **VNet Global Existente**: Uma VNet chamada `vnet_globalservice` deve existir no grupo de recursos `GlobalService` para que o emparelhamento de rede seja bem-sucedido.
 
 ## Configuração
 
