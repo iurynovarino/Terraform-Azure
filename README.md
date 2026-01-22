@@ -5,7 +5,6 @@
 Este projeto Terraform provisiona uma infraestrutura base na Microsoft Azure para um ambiente fictício de homologação (HML). Ele cria os seguintes recursos principais:
 - Um Grupo de Recursos para organizar todos os serviços.
 - Uma Rede Virtual (VNet) e uma Subnet dedicada.
-- Uma Conta de Armazenamento (Storage Account) com vários contêineres pré-configurados.
 - Um cluster Azure Kubernetes Service (AKS) com um pool de nós padrão e um pool de nós de usuário.
 - Emparelhamento (Peering) de VNet entre a VNet recém-criada e uma VNet de serviços globais existente.
  
