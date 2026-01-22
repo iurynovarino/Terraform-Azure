@@ -38,22 +38,6 @@ variable "snet_address_prefixes" {
   type = list(string)
 }
 
-variable "storage_name" {
-  description = "The base name for the storage account. A random suffix will be appended."
-  type = string
-}
-
-variable "access_tier" {
-  type    = string
-  default = "Cool"
-  description = "The access tier for the storage account. Can be 'Hot' or 'Cool'."
-
-  validation {
-    condition     = contains(["Hot", "Cool"], var.access_tier)
-    error_message = "The access_tier must be either 'Hot' or 'Cool'."
-  }
-}
-
 variable "public_network_access" {
   type    = string
   default = "Enabled"
@@ -65,11 +49,6 @@ variable "public_network_access" {
   }
 }
 
-variable "allow_blob_public_access" {
-  type    = bool
-  default = true
-  description = "Whether to allow anonymous public read access to blobs in the storage account."
-}
 
 # Variáveis do Kubernetes
 variable "dns_service_ip" {
