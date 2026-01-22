@@ -19,66 +19,6 @@ resource "azurerm_virtual_network" "vnet" {
   resource_group_name = azurerm_resource_group.rg.name
 }
 
-# Subnet
-resource "azurerm_subnet" "snet" {
-  name                 = var.snet_name
-  resource_group_name  = azurerm_resource_group.rg.name
-  virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = var.snet_address_prefixes
-
-  # Explicitly set network policies to match existing state and prevent drift.
-  # This is important for resources like Private Endpoints.
-  private_endpoint_network_policies_enabled = false
-  private_link_service_network_policies_enabled = true
-}
-
-resource "random_string" "suffix" {
-  length  = 4
-  lower   = true
-  numeric = true
-  special = false
-  upper   = false
-}
-
-resource "azurerm_storage_account" "storage" {
-  name                          = "${var.storage_name}${random_string.suffix.result}"
-  resource_group_name           = azurerm_resource_group.rg.name
-  location                      = azurerm_resource_group.rg.location
-  account_tier                  = "Standard"
-  account_replication_type      = "LRS"
-  access_tier                   = var.access_tier
-  # For better security, consider setting public_network_access to "Disabled" and using private endpoints.
-  public_network_access_enabled = var.public_network_access == "Enabled"
-  allow_nested_items_to_be_public = var.allow_blob_public_access
-  https_traffic_only_enabled    = true
-  min_tls_version               = "TLS1_2"
-}
-
-locals {
-  storage_containers = {
-    "auditoria"      = "container"
-    "brasao"         = "container"
-    "facialRecogn"   = "container"
-    "profile"        = "container"
-    "shared-files"   = "container"
-    "templates"      = "container"
-    "utilitarios"    = "container"
-    "tutorial"       = "container"
-    "public-files"   = "blob"
-    "apps"           = "blob"
-    "images"         = "blob"
-  }
-}
-
-# Containers
-resource "azurerm_storage_container" "containers" {
-  for_each = local.storage_containers
-
-  name                  = each.key
-  storage_account_name  = azurerm_storage_account.storage.name
-  container_access_type = each.value
-}
-
 # Cluster AKS
 resource "azurerm_kubernetes_cluster" "aks" {
   name                = var.aks_cluster_name
@@ -166,8 +106,3 @@ output "aks_resource_group" {
   description = "The name of the resource group where the AKS cluster is located."
   value       = azurerm_kubernetes_cluster.aks.resource_group_name
 }  
-
-output "storage_account_name" {
-  description = "The name of the created storage account."
-  value       = azurerm_storage_account.storage.name
-}
