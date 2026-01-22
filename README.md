@@ -2,7 +2,8 @@
  
 ## Descrição
  
-Este projeto Terraform provisiona uma infraestrutura base na Microsoft Azure para um ambiente fictício de homologação (HML). Ele cria os seguintes recursos principais:
+Este projeto Terraform provisiona uma infraestrutura base na Microsoft Azure para um ambiente fictício de homologação (HML). A estrutura foi segmentada para operar como se houvesse uma rede principal que chamei de global, nessa camada operaria os recurso comuns entre os projetos. Já o cluster de HML rodará na rede de homologação onde por sua vez pensei em alocar todos os recursos desse ambiente de homologação, porém nesse projeto aqui foi focado somente no AKS. Abaixo estão os recursos pretendidos para subir com esse script do Terraform:
+
 - Um Grupo de Recursos para organizar todos os serviços.
 - Uma Rede Virtual (VNet) e uma Subnet dedicada.
 - Um cluster Azure Kubernetes Service (AKS) com um pool de nós padrão e um pool de nós de usuário.
